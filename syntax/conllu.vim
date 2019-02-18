@@ -51,10 +51,10 @@ syn keyword     conlluDepRel    nsubj obj iobj csub xcomp ccomp obl
 \                                compound list parataxis orphan goeswith
 \                                reparandum punct root dep
 " Column 1 index, 7 head, 9 extdeps
-syn match       conlluIndex     /[0-9]+\([-.][0-9]+\)?/       contained display
+syn match       conlluIndex     /[0-9]\+\([-.][0-9]\+\)\?/
 " Column 10 misc
 syn keyword     conlluMisc      SpaceAfter Translit LTranslit Gloss MSeg MGloss
-syn match       conlluEmpty     /\w_\w/ contained display
+syn match       conlluEmpty     /\<_\>/
 
 " Comments
 syn keyword     conlluCommentNotes      TODO FIXME XXX  contained
