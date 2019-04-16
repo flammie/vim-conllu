@@ -6,12 +6,12 @@ call ale#Set('conllu_validate_options', '--lang en')
 
 function! ale_linters#conllu#validate#Handle(buffer, lines) abort
     let l:output = []
-    let l:pattern = '\v\[Line (\d+) (.*)'
+    let l:pattern = '\v\[Line (\d+) (.+)\]: (.*)'
 
     for l:match in ale#util#GetMatches(a:lines, l:pattern)
         call add(l:output, {
         \   'lnum': l:match[1] + 0,
-        \   'text': l:match[2],
+        \   'text': l:match[3],
         \   'type': 'E',
         \})
     endfor
