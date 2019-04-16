@@ -16,15 +16,15 @@ function! ale_linters#conllu#validate#Handle(buffer, lines) abort
         \})
     endfor
 
-""    let l:pattern = '.Tree number (\d+) on line (\d+) Sent (.+).: (.*)'
-""
-""    for l:match in ale#util#GetMatches(a:lines, l:pattern)
-""        call add(l:output, {
-""        \   'lnum': l:match[2] + 0,
-""        \   'text': l:match[4],
-""        \   'type': 'E',
-""        \})
-""    endfor
+    let l:pattern = '\v\[Tree number (\d+) on line (\d+) Sent (.+)\]: (.*)'
+
+    for l:match in ale#util#GetMatches(a:lines, l:pattern)
+        call add(l:output, {
+        \   'lnum': l:match[2] + 0,
+        \   'text': l:match[4],
+        \   'type': 'E',
+        \})
+    endfor
 
     return l:output
 endfunction
