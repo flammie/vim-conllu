@@ -19,6 +19,8 @@ cp plugin/conllu.vim ~/.vim/plugin/
 cp syntax/conllu.vim ~/.vim/syntax/
 mkdir -p ~/.vim/syntax_checkers/conllu
 cp syntax_checkers/conllu/validate.vim ~/.vim/syntax_checkers/conllu/
+mkdir -p ~/.vim/ale_linters/conllu
+cp ale_linters/conllu/validate.vim ~/.vim/ale_linters/conllu/
 ```
 
 ## Plugin
@@ -35,9 +37,18 @@ ellipses and multiwords.
 
 ## Syntax checking
 
-There's a syntastic script that gets registered as conllu/validate, you have to
-add it to syntastic registry to enable automatic checking on write manually. It
-also looks for `conllu_validate.py` on the PATH, so you need to cp that from
-`universaldependencies/tools/validate.py` to somewhere.
+Syntax checking is done with `conllu_validate.py`, to have it work you need to
+go to https://github.com/universaldependencies/tools and get the `validate.py`,
+and copy it to `$PATH` as `conllu_validate.py`.
 
-**NB:** the --lang eng is hard-coded... not sure there's any easy way around it
+**NB:** the --lang en is hard-coded... not sure there's any easy way around it.
+
+### Syntastic
+
+There's a syntastic script that gets registered as conllu/validate, you have to
+add it to syntastic registry to enable automatic checking on write manually.
+
+### ALE
+
+There's an ALE script that seems to just work automatically. ALE is better than
+syntastic, so use that.
