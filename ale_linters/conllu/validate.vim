@@ -4,6 +4,13 @@
 call ale#Set('conllu_validate_executable', 'conllu_validate.py')
 call ale#Set('conllu_validate_options', '--lang en')
 
+function! ale_linters#conllu#validate#MakeCommand(buffer)
+    let l:command = ale#Var(a:buffer, 'conllu_validate_executable') .
+                \ ' ' . ale#Var(a:buffer, 'conllu_validate_options') .
+                \ ' %t'
+    return l:command
+endfunction
+
 function! ale_linters#conllu#validate#Handle(buffer, lines) abort
     let l:output = []
     let l:pattern = '\v\[Line (\d+) (.+)\]: (.*)'
@@ -31,9 +38,9 @@ endfunction
 
 call ale#linter#Define('conllu', {
 \   'name': 'conllu_validate',
-\   'executable': 'conllu_validate.py',
+\   'executable': {b -> ale#Var(b, 'conllu_validate_executable')},
 \   'output_stream': 'stderr',
-\   'command': 'conllu_validate.py --lang en %t',
+\   'command': function('ale_linters#conllu#validate#MakeCommand'),
 \   'callback': 'ale_linters#conllu#validate#Handle',
 \   'lint_file': 1,
 \})
