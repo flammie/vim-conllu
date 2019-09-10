@@ -2,7 +2,20 @@
 " Description: validate conllu files
 
 call ale#Set('conllu_validate_executable', 'conllu_validate.py')
-call ale#Set('conllu_validate_options', '--lang en')
+call ale#Set('conllu_validate_options', '--lang fi')
+
+function! ale_linters#conllu#validate#GetExecutable(buffer) abort
+    return ale#Var(a:buffer, 'conllu_validate_executable')
+endfunction
+
+function! ale_linters#conllu#validate#GetCommand(buffer) abort
+    let l:executable = ale_linters#conllu#validate#GetExecutable(a:buffer)
+
+    let l:command = l:executable .
+        \ ale#Pad(ale#Var(a:buffer, 'conllu_validate_options')) .
+        \ ' %t'
+    return l:command 
+endfunction
 
 function! ale_linters#conllu#validate#Handle(buffer, lines) abort
     let l:output = []
@@ -31,9 +44,9 @@ endfunction
 
 call ale#linter#Define('conllu', {
 \   'name': 'conllu_validate',
-\   'executable': 'conllu_validate.py',
+\   'executable': function('ale_linters#conllu#validate#GetExecutable'),
+\   'command': function('ale_linters#conllu#validate#GetCommand'),
 \   'output_stream': 'stderr',
-\   'command': 'conllu_validate.py --lang en %t',
 \   'callback': 'ale_linters#conllu#validate#Handle',
 \   'lint_file': 1,
 \})
