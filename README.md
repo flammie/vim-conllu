@@ -37,7 +37,7 @@ ellipses and multiwords.
 
 ## Syntax checking
 
-Syntax checking is done with `conllu_validate.py`, to have it work you need to
+Syntax checking is done with `validate.py` from UD repo, to have it work you need to
 go to https://github.com/universaldependencies/tools and get the `validate.py`.
 
 ### ALE
